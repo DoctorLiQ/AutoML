@@ -259,7 +259,7 @@ def main():
             'best_acc_top1': best_acc_top1,
             'optimizer' : optimizer.state_dict(),
                  }
-          utils.save(model, os.path.join(ckpt_dir, 'weights_%.3f.pt'%(valid_acc_top1)), ckpt=ckpt)
+          utils.save(model, os.path.join(ckpt_dir, 'weights_%.3f.pt'%(valid_acc_top1)))
           best_acc_top1 = valid_acc_top1
           best_acc_top5 = valid_acc_top5
 
@@ -325,7 +325,7 @@ def train(train_queue, model, criterion, optimizer):
                 start_time = time.time()
             logging.info('TRAIN Step: %03d Objs: %e R1: %f R5: %f Duration: %ds BTime: %.3fs', 
                                     step, objs.avg, top1.avg, top5.avg, duration, batch_time.avg)
-
+        break
     return top1.avg, objs.avg
 
 
@@ -357,7 +357,7 @@ def infer(valid_queue, model, criterion):
                 duration = end_time - start_time
                 start_time = time.time()
             logging.info('VALID Step: %03d Objs: %e R1: %f R5: %f Duration: %ds', step, objs.avg, top1.avg, top5.avg, duration)
-
+        break
     return top1.avg, top5.avg, objs.avg
 
 
