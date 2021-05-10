@@ -288,10 +288,10 @@ def adjust_lr(optimizer, epoch):
     return lr        
 
 def train(train_queue, model, criterion, optimizer):
-    objs = utils.AverageMeter()
-    top1 = utils.AverageMeter()
-    top5 = utils.AverageMeter()
-    batch_time = utils.AverageMeter()
+    objs = utils.AvgrageMeter()
+    top1 = utils.AvgrageMeter()
+    top5 = utils.AvgrageMeter()
+    batch_time = utils.AvgrageMeter()
     model.train()
 
     for step, (input, target) in enumerate(train_queue):
@@ -330,9 +330,9 @@ def train(train_queue, model, criterion, optimizer):
 
 
 def infer(valid_queue, model, criterion):
-    objs = utils.AverageMeter()
-    top1 = utils.AverageMeter()
-    top5 = utils.AverageMeter()
+    objs = utils.AvgrageMeter()
+    top1 = utils.AvgrageMeter()
+    top5 = utils.AvgrageMeter()
     model.eval()
 
     for step, (input, target) in enumerate(valid_queue):
