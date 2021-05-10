@@ -22,7 +22,7 @@ from model import NetworkImageNet as Network
 
 parser = argparse.ArgumentParser("training imagenet")
 parser.add_argument('--mode', type=str, default='eval', help='location of the data corpus')
-parser.add_argument('--data', type=str, default='path/to/imageNet', help='location of the data corpus')
+parser.add_argument('--data', type=str, default='/public/data1/datasets/imagenet2012', help='location of the data corpus')
 parser.add_argument('--workers', type=int, default=16, help='number of workers to load dataset')
 parser.add_argument('--batch_size', type=int, default=256, help='batch size')
 parser.add_argument('--learning_rate', type=float, default=0.1, help='init learning rate')
