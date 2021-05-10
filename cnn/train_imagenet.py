@@ -394,7 +394,7 @@ def eval_arch(genotype_file, ckpt_path):
   criterion_smooth = CrossEntropyLabelSmooth(CLASSES, args.label_smooth)
   criterion_smooth = criterion_smooth.cuda()
 
-  validdir = os.path.join(args.data, 'Imagenet_val')
+  validdir = os.path.join(args.data, 'ILSVRC2012_img_val')
   normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
   valid_data = dset.ImageFolder(
     validdir,
