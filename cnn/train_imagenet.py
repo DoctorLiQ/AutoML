@@ -104,6 +104,7 @@ def main():
     ckpt_dir = os.path.join(args.base_path, "ImageNet")
     if not os.path.exists(ckpt_dir):
       os.makedirs(ckpt_dir)
+    print(arhs.arch)
     if args.arch is not None:
       genotype = eval("genotypes.%s" % args.arch)
     elif args.base_path is not None and args.genotype_name is not None:
@@ -372,8 +373,11 @@ def eval_arch(genotype_file, ckpt_path):
   torch.cuda.manual_seed(args.seed)
   logging.info("args = %s", args)
 
-  tmp_dict = json.load(open(genotype_file,'r'))
-  genotype = genotypes.Genotype(**tmp_dict)
+#   tmp_dict = json.load(open(genotype_file,'r'))
+  if args.arch is not None:
+      genotype = eval("genotypes.%s" % args.arch)
+#   genotype = genotypes.Genotype(**tmp_dict)
+
   print(genotype)
   model = Network(args.init_channels, CLASSES, args.layers, args.auxiliary, genotype)
   model.drop_path_prob = 0.
@@ -412,12 +416,16 @@ if __name__ == '__main__':
     if args.mode == 'train':
       main()
     elif args.mode == 'eval':
-      base_dir = args.base_path
-      genotype_path = os.path.join(base_dir, 'results_of_7q/genotype')
-      genotype_names = [args.genotype_name]
-      genotype_file = os.path.join(genotype_path, '%s.txt'%(genotype_names[0]))
-      ckpt_path = args.load_file
-      eval_arch(genotype_file, ckpt_path)
+        if args.arch is not None:
+            genotype = eval("genotypes.%s" % args.arch)
+        else:
+            base_dir = args.base_path
+            genotype_path = os.path.join(base_dir, 'results_of_7q/genotype')
+            genotype_names = [args.genotype_name]
+            genotype_file = os.path.join(genotype_path, '%s.txt'%(genotype_names[0]))
+            ckpt_path = args.load_file
+
+        eval_arch('', ckpt_path)
     else:
       raise(ValueError("Not Implement mode for %s"%args.mode))
 
