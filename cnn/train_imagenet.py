@@ -140,7 +140,7 @@ def main():
 #    data_dir = os.path.join(args.tmp_data_dir, 'imagenet')
 #    traindir = os.path.join(data_dir, 'train')
 #    validdir = os.path.join(data_dir, 'val')
-    traindir = os.path.join(args.data, 'ILSVRC2012_train')
+    traindir = os.path.join(args.data, 'ILSVRC2012_img_train')
     validdir = os.path.join(args.data, 'ILSVRC2012_img_val')
     normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     valid_data = dset.ImageFolder(
