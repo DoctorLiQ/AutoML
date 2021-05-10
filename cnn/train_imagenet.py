@@ -245,7 +245,7 @@ def main():
           'best_acc_top1': best_acc_top1,
           'optimizer' : optimizer.state_dict(),
                }
-        utils.save(model, os.path.join(ckpt_dir, 'weights_%d.pt'%(epoch)), ckpt=ckpt)
+        utils.save(model, os.path.join(ckpt_dir, 'weights_%d.pt'%(epoch)))
 
         if valid_acc_top1 > best_acc_top1:
           try:
