@@ -423,7 +423,7 @@ if __name__ == '__main__':
             genotype_path = os.path.join(base_dir, 'results_of_7q/genotype')
             genotype_names = [args.genotype_name]
             genotype_file = os.path.join(genotype_path, '%s.txt'%(genotype_names[0]))
-            ckpt_path = args.load_file
+        ckpt_path = args.load_file
 
         eval_arch('', ckpt_path)
     else:
