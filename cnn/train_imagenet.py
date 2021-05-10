@@ -104,7 +104,7 @@ def main():
     ckpt_dir = os.path.join(args.base_path, "ImageNet")
     if not os.path.exists(ckpt_dir):
       os.makedirs(ckpt_dir)
-    print(arhs.arch)
+    # print(arhs.arch)
     if args.arch is not None:
       genotype = eval("genotypes.%s" % args.arch)
     elif args.base_path is not None and args.genotype_name is not None:
