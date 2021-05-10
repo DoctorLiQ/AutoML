@@ -45,7 +45,7 @@ parser.add_argument('--tmp_data_dir', type=str, default='/tmp/cache/', help='tem
 parser.add_argument('--note', type=str, default='try', help='note for this run')
 
 
-parser.add_argument('--base_path', type=str, default='EXP', help='which architecture to use')
+parser.add_argument('--base_path', type=str, default='./', help='which architecture to use')
 parser.add_argument('--genotype_name', type=str, default=None, help='which architecture to use')
 parser.add_argument('--from_scratch', action='store_true', default=False, help='path to ckpt file for re-trained weight')
 parser.add_argument('--load_file', type=str, default=None, help='path to ckpt file for re-trained weight')
@@ -107,7 +107,7 @@ def main():
     if args.arch is not None:
       genotype = eval("genotypes.%s" % args.arch)
     elif args.base_path is not None and args.genotype_name is not None:
-      genotype_path = os.path.join(args.base_path, 'results_of_7q/genotype')
+      genotype_path = os.path.join(args.base_path, 'genotype')
       genotype = get_genotype(genotype_path, args.genotype_name)
     else:
       raise(ValueError("the parser input arch, genotype_path, genotype_name should not be all None"))
