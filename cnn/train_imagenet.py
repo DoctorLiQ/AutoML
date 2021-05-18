@@ -212,8 +212,8 @@ def main():
         # if num_gpus > 1:
         #     model.load_state_dict(sat)
         # else:
-        model = nn.DataParallel(model).cuda()
-        model.load_state_dict(sat, strict = False)
+        model = model.cuda()
+        model.load_state_dict(sat)
 
 
 #    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, args.decay_period, gamma=args.gamma, last_epoch=start_epoch)
