@@ -193,8 +193,8 @@ def main():
     if ckpt_file is not None:
         logging.info('====== Load ckpt ======')
         logging.info("Loading from %s"%ckpt_file)
-        model = torch.load(ckpt_file)
-        model.eval()
+        m = torch.load(ckpt_file)
+        model = eval(m)
         start_epoch = 130
         print(type(model))
 
