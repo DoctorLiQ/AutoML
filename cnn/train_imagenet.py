@@ -190,18 +190,18 @@ def main():
             if tmp > start_epoch: 
               start_epoch = tmp
               ckpt_file = os.path.join(ckpt_dir, f)
-    # if ckpt_file is not None:
-    #     logging.info('====== Load ckpt ======')
-    #     logging.info("Loading from %s"%ckpt_file)
-    #     checkpoint = torch.load(ckpt_file)
-    #     if num_gpus > 1:
-    #       model.module.load_state_dict(checkpoint['state_dict'])
-    #     else:
-    #       model.load_state_dict(checkpoint['state_dict'])
-    #     start_epoch = int(checkpoint['epoch']) + 1
-    #     optimizer.load_state_dict(checkpoint['optimizer'])
-    #     best_acc_top1 = float(checkpoint['best_acc_top1'])
-    #     logging.info("Training Start at %d"%start_epoch)
+    if ckpt_file is not None:
+        logging.info('====== Load ckpt ======')
+        logging.info("Loading from %s"%ckpt_file)
+        checkpoint = torch.load(ckpt_file)
+        if num_gpus > 1:
+          model.module.load_state_dict(checkpoint['state_dict'])
+        else:
+          model.load_state_dict(checkpoint['state_dict'])
+        start_epoch = int(checkpoint['epoch']) + 1
+        optimizer.load_state_dict(checkpoint['optimizer'])
+        best_acc_top1 = float(checkpoint['best_acc_top1'])
+        logging.info("Training Start at %d"%start_epoch)
 
 #    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, args.decay_period, gamma=args.gamma, last_epoch=start_epoch)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, float(args.epochs))
