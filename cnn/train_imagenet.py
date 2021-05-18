@@ -196,7 +196,7 @@ def main():
 
    
         start_epoch = 130
-        print(type(model))
+        
 
         # if num_gpus > 1:
         #   model.module.load_state_dict(checkpoint['state_dict'])
@@ -207,7 +207,9 @@ def main():
         # best_acc_top1 = float(checkpoint['best_acc_top1'])
         # logging.info("Training Start at %d"%start_epoch)
         logging.info("Training Start at %d"%start_epoch)
-        utils.load(model,ckpt_file)
+        sat= torch.load(ckpt_file)
+        print(sat)
+        model.load_state_dict(eval(sat))
 
 
 #    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, args.decay_period, gamma=args.gamma, last_epoch=start_epoch)
