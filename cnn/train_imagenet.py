@@ -208,8 +208,8 @@ def main():
         # logging.info("Training Start at %d"%start_epoch)
         logging.info("Training Start at %d"%start_epoch)
         sat= torch.load(ckpt_file)
-        print(sat)
-        model.load_state_dict(eval(sat))
+        # print(type(sat))
+        model.load_state_dict(sat)
 
 
 #    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, args.decay_period, gamma=args.gamma, last_epoch=start_epoch)
