@@ -194,10 +194,10 @@ def main():
         logging.info('====== Load ckpt ======')
         logging.info("Loading from %s"%ckpt_file)
         checkpoint = torch.load(ckpt_file)
-        if num_gpus > 1:
-          model.module.load_state_dict(checkpoint['state_dict'])
-        else:
-          model.load_state_dict(checkpoint['state_dict'])
+        # if num_gpus > 1:
+        #   model.module.load_state_dict(checkpoint['state_dict'])
+        # else:
+        #   model.load_state_dict(checkpoint['state_dict'])
         start_epoch = int(checkpoint['epoch']) + 1
         optimizer.load_state_dict(checkpoint['optimizer'])
         best_acc_top1 = float(checkpoint['best_acc_top1'])
