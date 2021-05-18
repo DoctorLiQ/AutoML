@@ -15,7 +15,7 @@ import torch.utils
 import torchvision.datasets as dset
 import torchvision.transforms as transforms
 import torch.backends.cudnn as cudnn
-
+import copy
 from torch.autograd import Variable
 from model import NetworkImageNet as Network
 
@@ -216,8 +216,8 @@ def main():
         new_stat={}
         for k,v in sat.items():
             # "module.stem0.0.weight"
-            new_k = k[7:]
-            new_stat[new_k] =v
+            new_k = k#[7:]
+            new_stat[new_k] =copy.deepcopy(v)
         
         model.load_state_dict(new_stat)
 
