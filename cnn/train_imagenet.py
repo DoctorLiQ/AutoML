@@ -194,8 +194,10 @@ def main():
         logging.info('====== Load ckpt ======')
         logging.info("Loading from %s"%ckpt_file)
         model = torch.load(ckpt_file)
+        model.eval()
         start_epoch = 130
- 
+        print(type(model))
+
         # if num_gpus > 1:
         #   model.module.load_state_dict(checkpoint['state_dict'])
         # else:
