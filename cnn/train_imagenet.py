@@ -213,7 +213,7 @@ def main():
         #     model.load_state_dict(sat)
         # else:
         model = nn.DataParallel(model).cuda()
-        model.load_state_dict(sat)
+        model.load_state_dict(sat, strict = False)
 
 
 #    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, args.decay_period, gamma=args.gamma, last_epoch=start_epoch)
