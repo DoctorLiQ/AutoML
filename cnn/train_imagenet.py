@@ -209,6 +209,10 @@ def main():
         logging.info("Training Start at %d"%start_epoch)
         sat= torch.load(ckpt_file)
         # print(type(sat))
+        if num_gpus > 1:
+            model.load_state_dict(sat)
+        else:
+            model = nn.DataParallel.cuda()
         model.load_state_dict(sat)
 
 
