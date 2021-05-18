@@ -193,15 +193,17 @@ def main():
     if ckpt_file is not None:
         logging.info('====== Load ckpt ======')
         logging.info("Loading from %s"%ckpt_file)
-        checkpoint = torch.load(ckpt_file)
-        print( checkpoint)
-        if num_gpus > 1:
-          model.module.load_state_dict(checkpoint['state_dict'])
-        else:
-          model.load_state_dict(checkpoint['state_dict'])
-        start_epoch = int(checkpoint['epoch']) + 1
-        optimizer.load_state_dict(checkpoint['optimizer'])
-        best_acc_top1 = float(checkpoint['best_acc_top1'])
+        model = torch.load(ckpt_file)
+        start_epoch = 130
+ 
+        # if num_gpus > 1:
+        #   model.module.load_state_dict(checkpoint['state_dict'])
+        # else:
+        #   model.load_state_dict(checkpoint['state_dict'])
+        # start_epoch = int(checkpoint['epoch']) + 1
+        # optimizer.load_state_dict(checkpoint['optimizer'])
+        # best_acc_top1 = float(checkpoint['best_acc_top1'])
+        # logging.info("Training Start at %d"%start_epoch)
         logging.info("Training Start at %d"%start_epoch)
 
 #    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, args.decay_period, gamma=args.gamma, last_epoch=start_epoch)
