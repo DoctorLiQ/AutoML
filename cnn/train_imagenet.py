@@ -212,7 +212,7 @@ def main():
         # if num_gpus > 1:
         #     model.load_state_dict(sat)
         # else:
-        model = model.cuda()
+        # model = model.cuda()
         model.module.load_state_dict(sat)
 
 
