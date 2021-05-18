@@ -213,13 +213,13 @@ def main():
         #     model.load_state_dict(sat)
         # else:
         # model = model.cuda()
-        new_stat={}
-        for k,v in sat.items():
-            # "module.stem0.0.weight"
-            new_k = k#[7:]
-            new_stat[new_k] =copy.deepcopy(v)
+        # new_stat={}
+        # for k,v in sat.items():
+        #     # "module.stem0.0.weight"
+        #     new_k = k#[7:]
+        #     new_stat[new_k] =copy.deepcopy(v)
         
-        model.load_state_dict(new_stat)
+        model.load_state_dict(sat)
 
 
 #    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, args.decay_period, gamma=args.gamma, last_epoch=start_epoch)
