@@ -212,7 +212,7 @@ def main():
         if num_gpus > 1:
             model.load_state_dict(sat)
         else:
-            model = nn.DataParallel.cuda()
+            model = nn.DataParallel().cuda()
         model.load_state_dict(sat)
 
 
