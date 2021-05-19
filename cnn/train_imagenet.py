@@ -104,6 +104,12 @@ def main():
     ckpt_dir = os.path.join(args.base_path, "ImageNet")
     if not os.path.exists(ckpt_dir):
       os.makedirs(ckpt_dir)
+
+    # ckpt_dir_1 = os.path.join(args.base_path, "ImageNet-1")
+    # if not os.path.exists(ckpt_dir):
+    #   os.makedirs(ckpt_dir_1)
+
+
     # print(arhs.arch)
     if args.arch is not None:
       genotype = eval("genotypes.%s" % args.arch)
@@ -254,7 +260,7 @@ def main():
         logging.info('Epoch time: %ds.', epoch_duration)
         # save current epoch model, and remove previous model
         try:
-            last_model = os.path.join(args.base_path+"new", 'weights_%d.pt'%(epoch-1))
+            last_model = os.path.join(ckpt_dir, 'weights_%d.pt'%(epoch-1))
             os.remove(last_model)
         except:
             pass
@@ -264,11 +270,11 @@ def main():
           'best_acc_top1': best_acc_top1,
           'optimizer' : optimizer.state_dict(),
                }
-        utils.save(model, os.path.join(args.base_path+'new', 'weights_%d.pt'%(epoch)))
+        utils.save(model, os.path.join(ckpt_dir, 'weights_%d.pt'%(epoch)))
 
         if valid_acc_top1 > best_acc_top1:
           try:
-              last_model = os.path.join(args.base_path+"new", 'weights_%.3f.pt'%(best_acc_top1))
+              last_model = os.path.join(ckpt_dir, 'weights_%.3f.pt'%(best_acc_top1))
               os.remove(last_model)
           except:
               pass
@@ -278,7 +284,7 @@ def main():
             'best_acc_top1': best_acc_top1,
             'optimizer' : optimizer.state_dict(),
                  }
-          utils.save(model, os.path.join(args.base_path+"new", 'weights_%.3f.pt'%(valid_acc_top1)))
+          utils.save(model, os.path.join(ckpt_dir, 'weights_%.3f.pt'%(valid_acc_top1)))
           best_acc_top1 = valid_acc_top1
           best_acc_top5 = valid_acc_top5
 
