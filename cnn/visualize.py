@@ -1,7 +1,7 @@
 import sys
 import genotypes
 from graphviz import Digraph
-
+# import matplotlib as plt
 
 def plot(genotype, filename):
   g = Digraph(
@@ -35,7 +35,7 @@ def plot(genotype, filename):
   for i in range(steps):
     g.edge(str(i), "c_{k}", fillcolor="gray")
 
-  g.render(filename, view=True)
+  g.render(filename, view=False)
 
 
 if __name__ == '__main__':
@@ -50,6 +50,6 @@ if __name__ == '__main__':
     print("{} is not specified in genotypes.py".format(genotype_name)) 
     sys.exit(1)
 
-  plot(genotype.normal, "normal")
-  plot(genotype.reduce, "reduction")
-
+  plot(genotype.normal, "normal.pdf")
+  plot(genotype.reduce, "reduction.pdf")
+  # plt.savefig(genotype.norm, "norm")
