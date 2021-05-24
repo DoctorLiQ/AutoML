@@ -201,7 +201,7 @@ def main():
         logging.info("Loading from %s"%ckpt_file)
 
    
-        start_epoch = 146
+        start_epoch = 241
         
 
         # if num_gpus > 1:
