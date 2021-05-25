@@ -230,7 +230,7 @@ def main():
 
 #    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, args.decay_period, gamma=args.gamma, last_epoch=start_epoch)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, float(args.epochs))
-
+ 
     for epoch in range(start_epoch, args.epochs):
         if args.lr_scheduler == 'cosine':
             scheduler.step()
