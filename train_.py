@@ -548,13 +548,13 @@ def main():
         valid_acc, valid_obj = infer(valid_queue, model, criterion)
         logging.info('valid_acc %f', valid_acc)
 
-        utils.save(model, os.path.join(args.save, 'weights.pt'))
+        save(model, os.path.join(args.save, 'weights.pt'))
 
 
 def train(train_queue, model, criterion, optimizer):
-    objs = utils.AvgrageMeter()
-    top1 = utils.AvgrageMeter()
-    top5 = utils.AvgrageMeter()
+    objs = AvgrageMeter()
+    top1 = AvgrageMeter()
+    top5 = AvgrageMeter()
     model.train()
 
     for step, (input, target) in enumerate(train_queue):
@@ -571,7 +571,7 @@ def train(train_queue, model, criterion, optimizer):
         nn.utils.clip_grad_norm(model.parameters(), args.grad_clip)
         optimizer.step()
 
-        prec1, prec5 = utils.accuracy(logits, target, topk=(1, 5))
+        prec1, prec5 = accuracy(logits, target, topk=(1, 5))
         n = input.size(0)
         objs.update(loss.data, n)
         top1.update(prec1.data, n)
@@ -584,9 +584,9 @@ def train(train_queue, model, criterion, optimizer):
 
 
 def infer(valid_queue, model, criterion):
-    objs = utils.AvgrageMeter()
-    top1 = utils.AvgrageMeter()
-    top5 = utils.AvgrageMeter()
+    objs = AvgrageMeter()
+    top1 = AvgrageMeter()
+    top5 = AvgrageMeter()
     model.eval()
     with torch.no_grad():
         for step, (input, target) in enumerate(valid_queue):
@@ -596,7 +596,7 @@ def infer(valid_queue, model, criterion):
             logits, _ = model(input)
             loss = criterion(logits, target)
 
-            prec1, prec5 = utils.accuracy(logits, target, topk=(1, 5))
+            prec1, prec5 = accuracy(logits, target, topk=(1, 5))
             n = input.size(0)
             objs.update(loss.data, n)
             top1.update(prec1.data, n)
