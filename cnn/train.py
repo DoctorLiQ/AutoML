@@ -94,7 +94,7 @@ def main():
 
   scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, float(args.epochs))
 
-  best_acc =0 
+  best_acc =97.5 
 
   for epoch in range(args.epochs):
     scheduler.step()
