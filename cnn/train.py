@@ -94,7 +94,7 @@ def main():
 
   scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, float(args.epochs))
 
-  best_acc =97.5 
+  best_acc = 0 
 
   for epoch in range(args.epochs):
     scheduler.step()
@@ -107,7 +107,8 @@ def main():
     valid_acc, valid_obj = infer(valid_queue, model, criterion)
     logging.info('valid_acc %f', valid_acc)
     if valid_acc >= best_acc:
-      utils.save(model, os.path.join(args.save, '%f.pt'.format(valid_acc)))
+        best_acc = valid_acc
+        utils.save(model, os.path.join(args.save, '%f.pt'.format(best_acc)))
 
 
 def train(train_queue, model, criterion, optimizer):
