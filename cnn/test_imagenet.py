@@ -19,7 +19,7 @@ from model import NetworkImageNet as Network
 
 
 parser = argparse.ArgumentParser("imagenet")
-parser.add_argument('--data', type=str, default='../data/imagenet/', help='location of the data corpus')
+parser.add_argument('--data', type=str, default='/public/data1/datasets/imagenet2012', help='location of the data corpus')
 parser.add_argument('--batch_size', type=int, default=128, help='batch size')
 parser.add_argument('--report_freq', type=float, default=100, help='report frequency')
 parser.add_argument('--gpu', type=int, default=0, help='gpu device id')
@@ -88,22 +88,22 @@ def infer(valid_queue, model, criterion):
   top1 = utils.AvgrageMeter()
   top5 = utils.AvgrageMeter()
   model.eval()
+  with torch.no_grad():
+    for step, (input, target) in enumerate(valid_queue):
+      input = Variable(input, volatile=True).cuda()
+      target = Variable(target, volatile=True).cuda(non_blocking=True)
 
-  for step, (input, target) in enumerate(valid_queue):
-    input = Variable(input, volatile=True).cuda()
-    target = Variable(target, volatile=True).cuda(async=True)
+      logits, _ = model(input)
+      loss = criterion(logits, target)
 
-    logits, _ = model(input)
-    loss = criterion(logits, target)
+      prec1, prec5 = utils.accuracy(logits, target, topk=(1, 5))
+      n = input.size(0)
+      objs.update(loss.data, n)
+      top1.update(prec1.data, n)
+      top5.update(prec5.data, n)
 
-    prec1, prec5 = utils.accuracy(logits, target, topk=(1, 5))
-    n = input.size(0)
-    objs.update(loss.data[0], n)
-    top1.update(prec1.data[0], n)
-    top5.update(prec5.data[0], n)
-
-    if step % args.report_freq == 0:
-      logging.info('valid %03d %e %f %f', step, objs.avg, top1.avg, top5.avg)
+      if step % args.report_freq == 0:
+        logging.info('valid %03d %e %f %f', step, objs.avg, top1.avg, top5.avg)
 
   return top1.avg, top5.avg, objs.avg
 
