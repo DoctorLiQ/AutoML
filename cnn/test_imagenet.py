@@ -56,7 +56,7 @@ def main():
   genotype = eval("genotypes.%s" % args.arch)
   model = Network(args.init_channels, CLASSES, args.layers, args.auxiliary, genotype)
   model = model.cuda()
-  model.load_state_dict(torch.load(args.model_path)['state_dict'])
+  model.load_state_dict(torch.load(args.model_path))
 
   logging.info("param size = %fMB", utils.count_parameters_in_MB(model))
 
