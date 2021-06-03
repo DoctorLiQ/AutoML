@@ -108,7 +108,7 @@ def main():
     logging.info('valid_acc %f', valid_acc)
     if valid_acc >= best_acc:
         best_acc = valid_acc
-        utils.save(model, os.path.join(args.save, '%f.pt'.format(best_acc)))
+        utils.save(model, os.path.join(args.save, '%f.pt'%(best_acc)))
 
 
 def train(train_queue, model, criterion, optimizer):
